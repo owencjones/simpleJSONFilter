@@ -13,8 +13,17 @@ module.exports = function () {
 		this.addHandler(/^(.*?) ={1,2}$/, function(key, val, data) { // {'foo =': 'bar'} or {'foo ==': 'bar'}
 			return (data[key] == val);
 		});
-		this.addHandler(/^(.*?) >$/, function(key, val, data) { // {'foo >': 'bar'}
-			return (data[key] > val);
+		// Added identical
+		this.addHandler(/^(.*?) ===$/, function(key, val, data) { // {'foo ===': 'bar'}
+			return (data[key] === val);
+		});
+		// Added not equal - Owen C. Jones
+		this.addHandler(/^(.*?) !=/, function(key, val, data) { // {'foo !=' : 'bar'}
+			return (data[key] != val);
+		});
+		// Added not identical
+		this.addHandler(/^(.*?) >$/, function(key, val, data) { // {'foo !==': 'bar'}
+			return (data[key] !== val);
 		});
 		this.addHandler(/^(.*?) <$/, function(key, val, data) { // {'foo <': 'bar'}
 			return (data[key] < val);
